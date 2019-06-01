@@ -1,0 +1,37 @@
+<Issue1>: django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.3 or newer is required; you have 0.7.11.None
+[Solution]: Comment out below code:
+    if version < (1, 3, 3):
+    raise ImproperlyConfigured("mysqlclient 1.3.3 or newer is required; you have %s" % Database.__version__)
+
+<Issue2>: SQL engine 
+[Solution]: Modify settings.py as below example
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'NAME': 'mysql',
+        'USER': 'root',
+        'PASSWORD': 'zwg123456',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }
+    
+    Add below code in __init_.py
+    import pymysql
+    pymysql.install_as_MySQLdb()
+    For when Django connects with MySQL, default to use MySQLdb driver，but MySQLdb doesn't support Python3, so set MySQL driver to  pymysql here
+    Update changes with below command:
+    python manage.py makemigrations
+    python manage.py migrate
+
+<Issue3>: File "C:\Python37\lib\site-packages\django\db\backends\mysql\operations.py", line 146, in last_executed_query
+    　　  query = query.decode(errors='replace')
+　　      AttributeError: 'str' object has no attribute 'decode'
+[Solution]: Update the file in line 146 and change decode to encode.
+
+<Issue4>: Error: That IP address can't be assigned to.
+    Update the settings.py of your project with:
+    ALLOWED_HOSTS = ['106.12.137.201', 'localhost', '0.0.0.0:8000', '127.0.0.1']
