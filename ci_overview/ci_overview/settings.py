@@ -54,7 +54,7 @@ ROOT_URLCONF = 'ci_overview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/python_proj/Django/ci_overview/ci_overview/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
