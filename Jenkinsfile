@@ -1,5 +1,8 @@
-pipeline {
+    pipeline {
     agent any 
+	tools{
+	    maven 'apache-maven-3.0.1'
+	}
     stages {
         stage('Build') {
             steps {
@@ -14,4 +17,10 @@ pipeline {
             }
         }
     }
+	post{
+	    always{
+		    sh 'ls -l'
+		}
+	
+	}
 }
