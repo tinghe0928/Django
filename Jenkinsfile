@@ -1,7 +1,9 @@
 pipeline {
-    agent any 
+    agent {
+	    docker { image 'docker.io/jenkins/jenkins:lts' }	
+	}
     stages {
-        stage('Build') {
+        stage('Say Hello') {
             steps {
                 echo 'Hello world!' 
 				sh 'mvn --version'
